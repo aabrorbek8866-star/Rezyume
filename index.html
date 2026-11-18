@@ -61,8 +61,23 @@ h1{font:800 clamp(44px,9vw,92px)/.98 Syne,"Segoe UI",sans-serif;margin:18px 0 12
 a.chip:hover{border-color:var(--acc);transform:translateY(-2px)}
 .chip svg{width:16px;height:16px;flex:none;color:var(--acc)}
 .chip.tg{border-color:var(--acc);animation:pulse 2.6s ease-in-out infinite}
-.hero>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
-.hero>*:nth-child(2){animation-delay:.1s}.hero>*:nth-child(3){animation-delay:.2s}.hero>*:nth-child(4){animation-delay:.3s}.hero>*:nth-child(6){animation-delay:.4s}.hero>*:nth-child(7){animation-delay:.5s}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,330px);gap:clamp(20px,4vw,48px);align-items:center}
+.hero h1{font-size:clamp(42px,7.4vw,80px)}
+.htxt>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.htxt>*:nth-child(2){animation-delay:.1s}.htxt>*:nth-child(3){animation-delay:.2s}.htxt>*:nth-child(4){animation-delay:.3s}.htxt>*:nth-child(6){animation-delay:.4s}.htxt>*:nth-child(7){animation-delay:.5s}
+.pic{position:relative;width:100%;max-width:330px;justify-self:end;animation:rise 1s .2s cubic-bezier(.2,.8,.2,1) both}
+.frame{position:relative;padding:3px;border-radius:190px 190px 30px 30px;background:conic-gradient(from var(--a,0deg),var(--g6),var(--g5),#3ee6f0,var(--g4),var(--g6));animation:turn 6s linear infinite;box-shadow:0 30px 80px -25px var(--glow)}
+.frame::after{content:"";position:absolute;inset:-18px;border-radius:200px 200px 40px 40px;border:1.5px dashed var(--line);z-index:-1}
+.frame img{display:block;width:100%;aspect-ratio:10/13;object-fit:cover;object-position:50% 15%;border-radius:187px 187px 27px 27px;background:#000}
+.frame .fade{position:absolute;left:3px;right:3px;bottom:3px;height:38%;border-radius:0 0 27px 27px;background:linear-gradient(transparent,rgba(5,31,32,.85))}
+.ptag{position:absolute;left:-18px;bottom:34px;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;background:var(--top);backdrop-filter:blur(10px);border:1px solid var(--line);box-shadow:0 12px 30px -10px rgba(0,0,0,.5);animation:bob 5s ease-in-out infinite}
+.ptag img{width:38px;height:38px;border-radius:50%}
+.ptag b{display:block;font-size:13px;line-height:1.2}.ptag span{font-size:12px;color:var(--mute)}
+.pbadge{position:absolute;right:-10px;top:42px;display:grid;place-items:center;width:74px;height:74px;border-radius:50%;background:var(--accbg);color:var(--onacc);text-align:center;font:800 20px/1 Syne,sans-serif;box-shadow:0 10px 30px -8px var(--glow);animation:bob 5s 1.2s ease-in-out infinite}
+.pbadge small{display:block;font:600 10px/1.1 "Space Grotesk",sans-serif;margin-top:3px}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes turn{to{--a:360deg}}
+@media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.pic{order:-1;justify-self:center;max-width:250px;margin:6px 0 10px}.ptag{left:-10px}.pbadge{right:-6px;width:64px;height:64px;font-size:17px}}
 /* sections */
 h2{display:flex;align-items:center;gap:14px;font-size:14px;font-weight:700;color:var(--acc);margin:52px 0 16px;letter-spacing:.02em}
 h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
@@ -405,7 +420,7 @@ const render=()=>{
  const fl=['all','ai','web','data','pres'].map((c,i)=>`<button class="fb${i?'':' act'}" data-f="${c}" aria-pressed="${!i}">${t.cats[c]} <span style="opacity:.6">${c==='all'?pj.length:pj.filter(p=>p[0]===c).length}</span></button>`).join('');
  const st=[["2+",t.stats[0]],["20+",t.stats[1]],["40%",t.stats[2]],["4.0+",t.stats[3]]];
  app.innerHTML=`
-<header class="hero">
+<header class="hero"><div class="htxt">
   <span class="badge"><i></i>${t.badge}</span>
   <h1>${t.name}</h1>
   <p class="role"><em>${t.role}</em> · <b id="typer">${t.typer[0]}</b><span class="cursor"></span></p>
@@ -418,6 +433,12 @@ const render=()=>{
     <a class="chip" href="mailto:${EM}">${sv('em')}${EM}</a>
     <span class="chip">${sv('pin')}${t.loc}</span>
   </div>
+</div>
+<div class="pic">
+  <div class="frame"><img src="photo.jpg" alt="${t.full}"><div class="fade"></div></div>
+  <div class="pbadge"><div>4.0+<small>GPA</small></div></div>
+  <div class="ptag"><img src="logo.png" alt=""><div><b>AI-Tech Azimov</b><span>${t.dr.tag}</span></div></div>
+</div>
 </header>
 <h2 class="rv">${t.h.pos}</h2>
 <div class="grid2 rv">${t.pos.map((p,i)=>`<article class="card hl"${i?' style="background:radial-gradient(120% 140% at 0% 100%,var(--glow),transparent 55%),var(--card)"':''}><span class="now"><i></i>${p[0]}</span><h3>${p[1]}</h3><p class="org">${p[2]}</p><ul>${p[3].map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('')}</div>
