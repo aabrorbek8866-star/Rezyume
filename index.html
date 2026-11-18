@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="uz" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abrorbek Azimov — Rezyume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: shaxsiy rezyume-portfolio, ishonchli va zamonaviy, 3 tilda
+   IDEA: zumrad tun / yashil tong — bitta palitraning ikki holati
+   PICTURE: katta gradient ism, suzuvchi yashil nurlar, yulduzlar
+   COLOUR and TYPE: #051F20 #0B2B26 #163832 #235347 #8EB69B #DAF1DE; Syne + Space Grotesk (kirill uchun zaxira shrift)
+   LAYOUT: yopishqoq yuqori panel (til + rejim), bitta ustun 980px, 600px dan pastda bir ustun */
+:root{--g1:#051F20;--g2:#0B2B26;--g3:#163832;--g4:#235347;--g5:#8EB69B;--g6:#DAF1DE}
+html[data-mode=dark]{color-scheme:dark;--bg:#051F20;--card:rgba(11,43,38,.78);--card2:#163832;--line:#235347;--ink:#DAF1DE;--mute:#9dbca6;--soft:#c4dcc9;--acc:#8EB69B;--accbg:#8EB69B;--onacc:#051F20;--bar:#163832;--top:rgba(5,31,32,.72);--glow:rgba(142,182,155,.45);--h1:linear-gradient(100deg,#DAF1DE 0%,#8EB69B 30%,#ffffff 50%,#8EB69B 70%,#DAF1DE 100%);--orb:#8EB69B;--orb2:#235347;--orbo:.55;--star:'218,241,222'}
+html[data-mode=light]{color-scheme:light;--bg:#e9f5eb;--card:rgba(255,255,255,.82);--card2:#DAF1DE;--line:#b5d4bd;--ink:#051F20;--mute:#3d6b5a;--soft:#163832;--acc:#235347;--accbg:#235347;--onacc:#DAF1DE;--bar:#cfe6d4;--top:rgba(233,245,235,.8);--glow:rgba(35,83,71,.25);--h1:linear-gradient(100deg,#051F20 0%,#235347 30%,#8EB69B 50%,#235347 70%,#051F20 100%);--orb:#8EB69B;--orb2:#DAF1DE;--orbo:.5;--star:'35,83,71'}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Space Grotesk","Segoe UI",system-ui,sans-serif;overflow-x:clip;transition:background-color .6s,color .6s}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none;opacity:var(--orbo);animation:float 18s ease-in-out infinite alternate;transition:opacity .6s}
+.orb.a{width:380px;height:380px;left:-140px;top:8%;background:radial-gradient(circle,var(--orb),transparent 70%)}
+.orb.b{width:320px;height:320px;right:-120px;top:4%;background:radial-gradient(circle,var(--orb),transparent 70%);animation-delay:-6s}
+.orb.c{width:300px;height:300px;left:-100px;bottom:-60px;background:radial-gradient(circle,var(--orb2),transparent 70%);animation-delay:-3s}
+.orb.d{width:340px;height:340px;right:-120px;bottom:6%;background:radial-gradient(circle,var(--orb),transparent 70%);animation-delay:-10s}
+a{color:inherit}
+/* top bar */
+.top{position:sticky;top:0;z-index:5;background:var(--top);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background .6s}
+.top .in{max-width:980px;margin:0 auto;padding:10px max(4vw,16px);display:flex;align-items:center;gap:14px}
+.logo{font:800 18px/1 Syne,sans-serif;text-decoration:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accbg);color:var(--onacc);flex:none}
+.top nav{display:flex;gap:4px;flex:1;overflow-x:auto}
+.top nav a{text-decoration:none;font-size:14px;font-weight:500;color:var(--mute);padding:8px 10px;border-radius:8px;white-space:nowrap}
+.top nav a:hover{color:var(--ink);background:var(--card2)}
+.seg{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card);flex:none}
+.seg button{min-width:40px;height:34px;border:0;border-radius:999px;background:none;color:var(--mute);font:700 13px "Space Grotesk",sans-serif;cursor:pointer;transition:all .25s}
+.seg button.act{background:var(--accbg);color:var(--onacc)}
+.mode{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;overflow:hidden}
+.mode svg{width:20px;height:20px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+html[data-mode=light] .mode .moon,html[data-mode=dark] .mode .sun{display:none}
+.mode:hover svg{transform:rotate(40deg)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:clamp(24px,5vw,52px) max(4vw,16px) 40px}
+/* hero */
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);backdrop-filter:blur(8px);font-size:13px;font-weight:600;color:var(--acc)}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--accbg);animation:pulse 2s ease-in-out infinite}
+h1{font:800 clamp(44px,9vw,92px)/.98 Syne,"Segoe UI",sans-serif;margin:18px 0 12px;background:var(--h1);background-size:250% 100%;animation:shine 7s linear infinite;-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
+.role{font-size:clamp(17px,2.4vw,20px);color:var(--mute);margin:0;min-height:1.6em}
+.role em{font-style:normal;color:var(--acc);font-weight:600}.role b{color:var(--ink);font-weight:600}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:3px;animation:blink 1s steps(1) infinite}
+.sub{color:var(--mute);margin:6px 0 0;font-size:15px}
+.rule{width:56px;height:2px;background:linear-gradient(90deg,var(--acc),transparent);margin:18px 0;animation:grow 1.2s .5s both}
+.stats{display:flex;flex-wrap:wrap;row-gap:12px}
+.stat{padding-right:22px;margin-right:22px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{display:block;font:800 clamp(24px,4vw,32px)/1.1 Syne,sans-serif;color:var(--acc)}
+.stat span{font-size:13px;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:14px;text-decoration:none;transition:border-color .2s,transform .2s}
+a.chip:hover{border-color:var(--acc);transform:translateY(-2px)}
+.chip svg{width:16px;height:16px;flex:none;color:var(--acc)}
+.chip.tg{border-color:var(--acc);animation:pulse 2.6s ease-in-out infinite}
+.hero>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero>*:nth-child(2){animation-delay:.1s}.hero>*:nth-child(3){animation-delay:.2s}.hero>*:nth-child(4){animation-delay:.3s}.hero>*:nth-child(6){animation-delay:.4s}.hero>*:nth-child(7){animation-delay:.5s}
+/* sections */
+h2{display:flex;align-items:center;gap:14px;font-size:14px;font-weight:700;color:var(--acc);margin:52px 0 16px;letter-spacing:.02em}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .3s,border-color .3s,box-shadow .3s,background .6s}
+.card:hover{border-color:var(--acc);box-shadow:0 18px 50px -20px var(--glow)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.hl{position:relative;overflow:hidden;background:radial-gradient(120% 140% at 100% 0%,var(--glow),transparent 55%),var(--card)}
+.now{font-size:12px;font-weight:700;color:var(--acc);display:inline-flex;align-items:center;gap:6px}
+.now i{width:7px;height:7px;border-radius:50%;background:var(--accbg);animation:pulse 2s infinite}
+.hl h3{font:700 clamp(20px,3vw,24px)/1.2 Syne,"Segoe UI",sans-serif;margin:8px 0 6px}
+.org{color:var(--mute);font-size:14px;margin:0 0 12px}
+.hl ul,.ev ul{margin:0;padding-left:18px;color:var(--soft);font-size:15px}
+.hl li+li,.ev li+li{margin-top:5px}
+.edu{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:center}
+.edu h3{margin:0 0 4px;font-size:22px;font-weight:600}
+.date{font-size:13px;color:var(--acc);font-weight:600}
+.edu p{color:var(--mute);margin:8px 0 12px}
+.edu ul{margin:0;padding-left:18px;color:var(--mute);font-size:15px}
+.gpa{text-align:center;border-left:1px solid var(--line);padding:10px}
+.gpa b{font:800 clamp(44px,7vw,64px)/1 Syne,sans-serif;color:var(--acc)}
+.gpa span{display:block;font-size:13px;color:var(--mute);margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--mute);background:var(--card2);transition:transform .2s,background .2s}
+.tag:hover{transform:translateY(-2px)}
+.tag.t1{color:var(--acc);border-color:var(--acc);background:transparent}
+.tag.t2{color:var(--onacc);background:var(--accbg);border-color:var(--accbg)}
+.sk h4{margin:0 0 14px;font-size:13px;font-weight:700;color:var(--acc)}
+.bar{margin-bottom:14px}
+.bar div{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600}
+.bar div span{color:var(--acc);font-weight:500;font-size:13px}
+.bar p{margin:6px 0 0;height:5px;border-radius:5px;background:var(--bar);overflow:hidden}
+.bar p i{display:block;height:100%;border-radius:5px;width:0;background:linear-gradient(90deg,var(--g4),var(--g5));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+html[data-mode=dark] .bar p i{background:linear-gradient(90deg,var(--g4),var(--g5),var(--g6))}
+.grp{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--acc);margin:20px 0 12px}
+.grp:first-child{margin-top:0}
+.grp::after{content:"";flex:1;height:1px;background:var(--line)}
+.mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.box{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;gap:12px;transition:transform .3s,border-color .3s}
+.box:hover{transform:translateY(-3px);border-color:var(--acc)}
+.ico{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;border:1px solid var(--line);color:var(--acc);background:var(--card)}
+.ico svg{width:18px;height:18px}
+.box b{display:block;font-size:15px}
+.box span{font-size:13px;color:var(--mute);line-height:1.45}
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--acc),var(--g5),var(--line));transform-origin:top;transform:scaleY(0);transition:transform 1.6s ease}
+.on .tl::before{transform:scaleY(1)}
+.ev{position:relative;padding-bottom:22px}.ev:last-child{padding-bottom:0}
+.ev::before{content:"";position:absolute;left:-26px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.ev:first-child::before{background:var(--accbg);animation:pulse 2s infinite}
+.ev small{font-size:12px;font-weight:700;color:var(--acc)}
+.ev h4{margin:2px 0 4px;font-size:18px}
+.ev .o{font-size:14px;color:var(--mute);margin:0 0 6px}
+/* portfolio */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.fb{min-height:40px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--mute);font:600 14px "Space Grotesk",sans-serif;cursor:pointer;transition:all .25s}
+.fb:hover{color:var(--ink);border-color:var(--acc)}
+.fb.act{background:var(--accbg);color:var(--onacc);border-color:var(--accbg)}
+.pf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pc{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .35s,border-color .3s,box-shadow .3s}
+.pc:hover{transform:translateY(-5px);border-color:var(--acc);box-shadow:0 22px 50px -22px var(--glow)}
+.pc.hide{display:none}.pc.pop{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.th{position:relative;height:130px;overflow:hidden;background:linear-gradient(135deg,var(--g3),var(--g2))}
+html[data-mode=light] .th{background:linear-gradient(135deg,#DAF1DE,#8EB69B)}
+.th::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--x,70%) 30%,rgba(142,182,155,.5),transparent 55%);transition:transform .6s}
+html[data-mode=light] .th::before{background:radial-gradient(circle at var(--x,70%) 30%,rgba(255,255,255,.75),transparent 55%)}
+.pc:hover .th::before{transform:scale(1.25)}
+.th svg.grid{position:absolute;inset:0;width:100%;height:100%;opacity:.18;color:var(--ink)}
+.big{position:absolute;left:18px;bottom:16px;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);color:var(--acc);transition:transform .4s}
+.pc:hover .big{transform:rotate(-8deg) scale(1.08)}
+.big svg{width:26px;height:26px}
+.cat{position:absolute;right:14px;top:14px;font-size:12px;font-weight:600;color:var(--onacc);background:var(--accbg);padding:3px 10px;border-radius:999px}
+.pb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pb h3{margin:0;font-size:17px;line-height:1.3}
+.pb p{margin:0;font-size:14px;color:var(--mute);flex:1}
+.pb .tag{font-size:12px;padding:3px 10px}
+.pi{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px}
+.dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px;margin:0}
+.dl dt{color:var(--mute);font-size:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.dl dd{margin:0;padding:11px 0;border-bottom:1px solid var(--line);font-weight:600}
+.dl dt:last-of-type,.dl dd:last-of-type{border:0}
+.cert{display:flex;gap:14px;align-items:center;margin-top:14px;padding:14px 16px;border-radius:14px;background:var(--card2);border:1px solid var(--line)}
+.cert .ico{width:46px;height:46px;border-radius:12px;background:var(--accbg);color:var(--onacc);border:0}
+.cert .ico svg{width:22px;height:22px}
+.cert b{display:block}.cert span{font-size:13px;color:var(--mute)}
+.cert .dt{margin-left:auto;font-size:13px;font-weight:700;color:var(--acc);white-space:nowrap}
+.doc{display:flex;flex-direction:column;gap:10px}
+.doc button.shot{padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in;background:#fff;display:block;width:100%;position:relative}
+.doc button.shot img{display:block;width:100%;height:auto;transition:transform .5s}
+.doc button.shot:hover img{transform:scale(1.04)}
+.doc button.shot span{position:absolute;right:10px;bottom:10px;font:600 12px "Space Grotesk",sans-serif;background:var(--g1);color:var(--g6);padding:4px 10px;border-radius:999px}
+.doc h4{margin:0;font-size:16px}
+.doc p{margin:0;font-size:13px;color:var(--mute)}
+.doc a.v{color:var(--acc);font-weight:600;font-size:14px}
+.rec{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.rec th{text-align:left;font-size:12px;color:var(--mute);font-weight:600;padding:8px 10px 8px 0;border-bottom:1px solid var(--line)}
+.rec td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.rec tr:last-child td{border:0}
+.rec td:first-child{white-space:nowrap;color:var(--acc);font-weight:600}
+.lb{position:fixed;inset:0;z-index:20;background:rgba(5,31,32,.88);backdrop-filter:blur(6px);display:none;place-items:center;padding:20px;cursor:zoom-out}
+.lb.open{display:grid;animation:fadein .3s both}
+.lb img{max-width:min(1000px,100%);max-height:90vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+@media(max-width:720px){.pi{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.rec thead{display:none}.rec tr{display:grid;padding:8px 0;border-bottom:1px solid var(--line)}.rec td{border:0;padding:2px 0}.dl{grid-template-columns:minmax(0,1fr)}.dl dt{border:0;padding-bottom:0}.cert{flex-wrap:wrap}.cert .dt{margin-left:0}}
+.dream{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:clamp(20px,4vw,44px);align-items:center;padding:clamp(22px,4vw,36px);background:radial-gradient(90% 120% at 15% 40%,var(--glow),transparent 60%),var(--card)}
+.ring{position:relative;width:min(280px,70vw);aspect-ratio:1;margin:auto;display:grid;place-items:center}
+.ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--g6),var(--g5),#3ee6f0,var(--g4),transparent 70%,var(--g6));animation:spin 6s linear infinite;-webkit-mask:radial-gradient(circle,transparent 62%,#000 63%);mask:radial-gradient(circle,transparent 62%,#000 63%);filter:drop-shadow(0 0 14px rgba(62,230,240,.55))}
+.ring::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:1.5px dashed var(--g5);opacity:.55;animation:spin 30s linear infinite reverse}
+.ring img{position:relative;width:84%;aspect-ratio:1;border-radius:50%;object-fit:cover;box-shadow:0 20px 60px -10px rgba(5,31,32,.8),0 0 0 4px var(--bg);animation:bob 5s ease-in-out infinite}
+.orbit{position:absolute;inset:-14px;animation:spin 12s linear infinite}
+.orbit i{position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#3ee6f0;box-shadow:0 0 14px #3ee6f0}
+.orbit.o2{animation-duration:18s;animation-direction:reverse}.orbit.o2 i{background:var(--g6);box-shadow:0 0 12px var(--g6);top:auto;bottom:-5px}
+.dream .now{margin-bottom:6px}
+.dream h3{font:700 clamp(24px,3.6vw,32px)/1.15 Syne,"Segoe UI",sans-serif;margin:4px 0 10px;text-wrap:balance}
+.dream p.lead{color:var(--mute);margin:0 0 12px;max-width:60ch}
+.brand{display:inline-block;font:800 clamp(26px,4.4vw,40px)/1.05 Syne,sans-serif;margin:0 0 4px;background:linear-gradient(90deg,var(--ink),#3ee6f0,var(--ink));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+html[data-mode=light] .brand{background-image:linear-gradient(90deg,#051F20,#0aa5b5,#051F20)}
+.place{font-size:14px;color:var(--acc);font-weight:600;margin:0 0 16px}
+.feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feat .box{padding:12px 14px}
+.meter{margin-top:16px}
+.meter div{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--acc)}
+.meter p{margin:6px 0 0;height:6px;border-radius:6px;background:var(--bar);overflow:hidden}
+.meter p i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--g4),var(--g5),#3ee6f0);transition:width 2s cubic-bezier(.2,.8,.2,1)}
+.logo.img{background:none;padding:0;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px var(--acc)}
+.logo.img img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@media(max-width:760px){.dream{grid-template-columns:minmax(0,1fr)}.feat{grid-template-columns:minmax(0,1fr)}}
+/* goal etc */
+.goal h3{font:700 clamp(24px,4vw,34px)/1.15 Syne,"Segoe UI",sans-serif;margin:0 0 12px;text-wrap:balance}
+.goal h3 span{color:var(--acc)}
+.goal p{color:var(--mute);margin:0 0 18px;max-width:64ch}
+.goal p b{color:var(--ink)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--card2);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px var(--glow)}
+.btn.p{background:linear-gradient(90deg,var(--g4),var(--g5),var(--g4));background-size:200% 100%;color:#fff;border:0;animation:shine 4s linear infinite}
+html[data-mode=dark] .btn.p{background:linear-gradient(90deg,var(--g5),var(--g6),var(--g5));background-size:200% 100%;color:var(--g1)}
+.btn svg{width:16px;height:16px}
+.lang{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600}
+.lang:last-child{border:0}
+.lang span{font-size:12px;font-weight:600;color:var(--acc);border:1px solid var(--line);padding:3px 10px;border-radius:999px;white-space:nowrap}
+.soft{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.soft div{font-size:14px;color:var(--soft);background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;transition:all .25s}
+.soft div:hover{background:var(--accbg);color:var(--onacc)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--mute)}
+footer b{display:block;color:var(--ink);font-size:15px;font-weight:600}
+footer nav{display:flex;gap:16px;flex-wrap:wrap}
+footer nav a{text-decoration:none}footer nav a:hover{color:var(--acc)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.on{opacity:1;transform:none}
+#app.swap{animation:fadein .45s ease both}
+@keyframes shine{to{background-position:-250% 0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--glow)}50%{box-shadow:0 0 0 8px transparent}}
+@keyframes float{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,50px) scale(1.15)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes grow{from{width:0}to{width:56px}}
+@keyframes blink{50%{opacity:0}}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:860px){.pf{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.grid2,.mini{grid-template-columns:minmax(0,1fr)}.edu{grid-template-columns:minmax(0,1fr)}.gpa{border-left:0;border-top:1px solid var(--line);padding-top:16px}.top nav{display:none}.top .in{justify-content:space-between}}
+@media(max-width:560px){.pf,.soft{grid-template-columns:minmax(0,1fr)}.stat{padding-right:14px;margin-right:14px}}
+@media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.tl::before{transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div><div class="orb d"></div>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div class="top"><div class="in">
+  <a class="logo img" href="#top" aria-label="AI-Tech Azimov"><img src="logo.png" alt=""></a>
+  <nav id="nav"></nav>
+  <div class="seg" id="langs" role="group" aria-label="Til / Язык / Language">
+    <button data-l="uz">UZ</button><button data-l="ru">RU</button><button data-l="en">EN</button>
+  </div>
+  <button class="mode" id="mode" aria-label="Kunduzgi / tungi rejim">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</div></div>
+
+<div class="wrap" id="top"><div id="app">
+  <header class="hero"><h1>Abrorbek<br>Azimov</h1><p class="role">Sun'iy intellekt bosh mutaxassisi</p></header>
+</div></div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true"><img src="mehnat.jpg" alt=""></div>
+<script>
+{
+const TG='https://t.me/azimov_8866',PH='+998 77 533 88 66',EM='aabrorbek8866@gmail.com';
+const ic={
+ tg:'<path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.6 2.7c.9-.3 1.6.2 1.3 1.6z" fill="currentColor" stroke="none"/>',
+ ph:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+ em:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>',
+ pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+ ai:'<path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z"/><circle cx="10" cy="10" r="1"/><circle cx="14" cy="10" r="1"/>',
+ chart:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+ db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+ table:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/>',
+ bot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 14h.01M15 14h.01"/>',
+ server:'<rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/>',
+ lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+ users:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/>',
+ pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+ cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+ mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/>',
+ cam:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/>',
+ cap:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+ globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
+ card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+ cart:'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/>',
+ leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 6-10 16-10 0 10-4 16-10 16"/><path d="M4 20c3-5 7-8 12-10"/>',
+ drop:'<path d="M12 2.7s7 7.3 7 12.3a7 7 0 0 1-14 0c0-5 7-12.3 7-12.3z"/>',
+ cert:'<circle cx="12" cy="8" r="6"/><path d="M8.2 12.8 7 22l5-3 5 3-1.2-9.2"/>',
+ slides:'<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 13l3-3 2 2 4-4"/>'
+};
+const sv=(k,w=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${ic[k]}</svg>`;
+
+/* shared data */
+const pct=[[90,80,75,85],[90,85,80,60],[90,80,75,80],[65,70,80,70]];
+const fe=["HTML5 / CSS3","JavaScript ES6+","React.js","Tailwind CSS"],be=["Node.js / Express.js","PostgreSQL / MySQL","Telegram Bot API","CRM (AmoCRM, Bitrix24)"];
+const techCommon=["Excel","Google Sheets","Power BI","Python","Pandas","HTML5","CSS3","JavaScript","React.js","Tailwind CSS","REST API","Node.js","Express.js","PostgreSQL","MySQL","JWT & RBAC","Telegram Bot API","Webhooks","AmoCRM","Bitrix24","Git","GitHub","VPS (Ubuntu/Linux)","Nginx","DNS","Figma"];
+const pj=[["ai","mic",["Python","AI","Voice"]],["ai","cam",["AI agents","SMM","auto"]],["web","cap",["CRM","JavaScript","Dashboard"]],["web","globe",["Web","edu","Frontend"]],["web","card",["HTML/CSS","anim","design"]],["data","chart",["stat","Google Sheets","report"]],["data","table",["Google Sheets","formulas","fin"]],["data","cart",["Data analytics","report","Excel"]],["pres","leaf",["AI","pres"]],["pres","drop",["IoT","AI","Agro"]],["pres","slides",["PowerPoint","info"]]];
+const exIcons=[["ai","bot","users","pen"],["table","chart","db","cal"],["server","lock"]];
+
+const L={
+uz:{dr:{h:"Kelajakdagi orzum",tag:"Kelajakdagi maqsad",t:"O'z IT o'quv markazimni ochish",lead:"Qiziltepa tumanida faqat IT yo'nalishiga ixtisoslashgan, to'liq avtomatlashtirilgan «aqlli o'quv markaz» ochish — mening eng katta orzum. Markaz nomi va brendi:",place:"IT o'quv markazi · Qiziltepa tumani, Navoiy viloyati",
+ f:[["Faqat IT yo'nalishlari","Dasturlash, sun'iy intellekt va zamonaviy raqamli kasblar"],["Face ID davomat","O'quvchilar kelib-ketishi yuzni tanish orqali avtomatik qayd etiladi"],["Ovozli yordamchi","Alisa ovozli assistenti markaz ishiga integratsiya qilinadi"],["Edu-Evolyutsiya CRM","O'zim yaratgan gamifikatsiyalashgan LMS: o'quv jarayoni va natijalar bitta tizimda"]],m:"Avtomatlashtirish darajasi"},
+ pi:{h:"Shaxsiy ma'lumotnoma",l:["F.I.Sh.","Tug'ilgan sana","Yashash manzili","Ma'lumoti","Harbiy xizmat"],v:["Azimov Abrorbek Azamat o'g'li","31.03.2006","Navoiy viloyati, Qiziltepa tumani, Bo'lakrabot MFY, 191-uy","Tugallanmagan oliy","Harbiy guvohnomasi bor · 1 oylik harbiy xizmatni o'tagan"],
+ cert:["Sertifikat · Web dasturchi","\"WWW-IT ACADEMY\" MChJ · Kasbga o'qitish"],
+ rh:"Rasmiy mehnat faoliyati (mehnat daftarchasidan)",th:["Sana","Lavozim / faoliyat","Tashkilot"],
+ rows:[["19.09.2025 — 16.12.2025","Dasturiy ta'minot ishlab chiqaruvchi","\"DAKTERANT SCHOOL\" MChJ"],["06.07.2026 — hozirgi vaqt","Menejer","\"PROPAN BEST\" MChJ"]],
+ doc:["Mehnat daftarchasidan ko'chirma","Hujjat raqami: 3390817461 · Berilgan sana: 18.11.2026","Haqiqiyligini tekshirish: my.mehnat.uz/check","Pasport va JShShIR raqamlari xavfsizlik uchun yashirilgan.","Kattalashtirish"]},
+ title:"Abrorbek Azimov — Rezyume",nav:["Ko'nikmalar","Tajriba","Portfolio","Aloqa"],mode:"Kunduzgi / tungi rejim",
+ badge:"SI bosh mutaxassisi · Frontend developer · Qiziltepa, Navoiy",name:"Abrorbek<br>Azimov",role:"Sun'iy intellekt bosh mutaxassisi",
+ typer:["Data analitika & statistika","Frontend developer","Telegram bot & CRM integrator","IT menejer"],
+ sub:"TMCI instituti · Dasturiy injiniring · 3-kurs (sirtqi)",stats:["yil tajriba","texnologiya","qo'l mehnati kamaydi","GPA"],loc:"Navoiy viloyati, Qiziltepa tumani",
+ h:{pos:"Hozirgi lavozimlar",edu:"Ta'lim",sk:"Texnik ko'nikmalar",all:"Barcha texnologiyalar",ex:"Qo'shimcha yo'nalishlar",exp:"Ish tajribasi va loyihalar",pf:"Portfolio",goal:"Maqsad",more:"Qo'shimcha ma'lumot",langs:"Tillar",soft:"Soft skills"},
+ pos:[["Hozirgi kun","Sun'iy intellekt bosh mutaxassisi","Raqamlashtirish va SI yechimlarini joriy etish",["Ish jarayonlariga SI vositalari (ChatGPT, Claude, AI agentlar) ni joriy qilish va xodimlarni o'qitish","Raqamlashtirish loyihalari, yo'l xaritalari va taqdimotlarni tayyorlash","Hisobot va ma'lumotnomalarni avtomatlashtirish"]],
+      ["2026 — Hozirgi kun","IT menejer","Bahra Buildings qurilish kompaniyasi · Toshkent",["Yangi a'zolarni saralash (screening) va onboarding jarayonlarini muvofiqlashtirish","Telegram, LinkedIn uchun axborot oqimi va kontent strategiyasini boshqarish","Topshiriqlarni taqsimlash, sprint muddatlari nazorati, GitHub/GitLab'da tartibli ish"]]],
+ edu:{n:"TMCI instituti",d:"2024 — 2029 (kutilayotgan) · Toshkent",deg:"Bakalavr: Dasturiy injiniring (Axborot tizimlari va texnologiyalari) — 3-kurs, sirtqi",f:["Zamonaviy veb arxitektura","Ma'lumotlar bazasi va backend integratsiyasi","Algoritmlar"],t:["3-kurs talabasi","Faol iqtidorli talaba"],g:"GPA — akademik ko'rsatkich"},
+ skg:["Sun'iy intellekt","Data analitika & statistika","Frontend","Backend, bot & DB"],
+ ski:[["Prompt engineering","AI agentlar va avtomatlashtirish","ChatGPT / Claude API","SI yechimlarini joriy etish"],["Excel / Google Sheets","Statistik tahlil va hisobotlar","Dashboard va vizualizatsiya","Python (Pandas)"]],
+ tech:["Sun'iy intellekt","Prompt engineering","AI agentlar","Data analitika","Statistika"],
+ ex:[["Sun'iy intellekt",[["SI yechimlarini joriy etish","Ish jarayonlarini tahlil qilib, SI vositalari bilan avtomatlashtirish"],["AI agentlar","Kontent, hisobot va xabarlar uchun avtomatik agentlar sozlash"],["Xodimlarni o'qitish","SI va MS Office'dan amaliy foydalanish bo'yicha treninglar"],["Hujjat va taqdimotlar","Yo'l xaritalari, ma'lumotnoma va taqdimotlarni SI yordamida tayyorlash"]]],
+     ["Data analitika & statistika",[["Ma'lumot yig'ish va tozalash","Excel / Google Sheets'da jadvallar, formulalar, avtomatik hisob-kitob"],["Statistik tahlil","Kunlik/davriy statistika, ko'rsatkichlar dinamikasi va solishtirish"],["Dashboard va hisobotlar","Rahbariyat uchun vizual dashboard va doklad tayyorlash"],["Monitoring","Rejalar ijrosini kuzatish va natijalarni o'z vaqtida yetkazish"]]],
+     ["Administratorlik",[["Server & hosting","VPS (Ubuntu/Linux), Nginx, domen/DNS va deployment"],["Xavfsizlik & Auth","JWT, role-based access control (RBAC)"]]]],
+ tl:[["Hozirgi kun","Sun'iy intellekt bosh mutaxassisi","Raqamlashtirish, SI va data analitika",["SI vositalari va AI agentlarni ish jarayoniga joriy etish","Statistik ma'lumotlarni yig'ish, tahlil qilish va hisobotlar tayyorlash"]],
+     ["2025 — Hozirgi kun","Frontend & Telegram Bot / CRM dasturchi","E-commerce platformasi va Telegram savdo tizimlari · Toshkent",["React.js yordamida tezkor, moslashuvchan veb-do'kon va katalog interfeyslarini yaratdim","Telegram Bot API orqali buyurtmalarni real vaqtda qabul qiluvchi bot tizimlarini joriy qildim","Buyurtmalar oqimini CRM va PostgreSQL bilan integratsiya qilib, qo'lda bajariladigan operatsiyalarni 40% ga kamaytirdim","Katalog, foydalanuvchilar va savdo tahlili uchun Admin Dashboard ishlab chiqdim"]],
+     ["2024 — 2025","Frontend dasturchi & administratorlik","Veb ilovalar, deployment va server boshqaruvi · Toshkent",["JavaScript (ES6+) va React.js yordamida dinamik, modulli veb-ilovalarni noldan ishlab chiqdim","Node.js va Express.js'da barqaror REST API'lar loyihalab, JWT autentifikatsiyasini ta'minladim","VPS'da ilovalarni sozlash, domen/DNS bog'lash va MySQL/PostgreSQL arxitekturasini optimallashtirdim"]],
+     ["2024 — 2025","Junior web developer","Statik va adaptiv veb-sahifalar · Toshkent",["HTML5, CSS3 va JavaScript bilan responsive veb-sahifalar yaratdim","Git va GitHub orqali versiyalar nazorati va toza kod standartlarini o'zlashtirdim"]]],
+ cats:{all:"Barchasi",ai:"SI & avtomatlashtirish",web:"Web & CRM",data:"Data & statistika",pres:"Loyiha & taqdimot"},
+ tw:{auto:"Avtomatlashtirish",edu:"Ta'lim",anim:"Animatsiya",design:"Dizayn",stat:"Statistika",report:"Hisobot",formulas:"Formulalar",fin:"Moliya",pres:"Taqdimot",info:"Infografika"},
+ pj:[["Shaxsiy JARVIS ovozli yordamchi","Kompyuterda ishlaydigan ovozli SI yordamchi; Telegram, Gmail va Instagram bilan bog'lanadi."],["Instagram uchun AI agentlar","Sahifa uchun kunlik post va story'larni AI agentlar yordamida avtomatik tayyorlash va chiqarish."],["Aqlli o'quv markaz va CRM","Qiziltepa tumanidagi IT o'quv markazi uchun o'zim yaratgan CRM: o'quvchilar, guruhlar va to'lovlar."],["BSIANATOMY.uz platformasi","Anatomiyani o'rganish uchun ta'limiy web platforma."],["Online taklifnomalar","Turli marosimlar uchun animatsiya, rasm va musiqali onlayn taklifnomalar tayyorlash xizmati."],["Sertifikatlar kunlik statistikasi","Maktablarda o'qituvchi va o'quvchilar olgan sertifikatlar bo'yicha kunlik statistika va hisobot."],["Kassa nazorati — Google Sheets","Kunlik kirim-chiqim hisobini yuritish, avtomatik jamlash va ruxsatlar tizimi."],["Navoiy viloyati marketplace hisoboti","Davriy tayyorlanadigan tahliliy doklad: qat'iy struktura, ko'rsatkichlar va xulosalar."],["Chorvachilikda SI — yo'l xaritasi","Qiziltepa tumani chorvachiligini raqamlashtirish va SI joriy etish bo'yicha yo'l xaritasi taqdimoti."],["Suv resurslarini raqamli boshqarish","Qishloq xo'jaligida IoT va SI asosida sug'orishni boshqarish loyihasi taqdimoti."],["Biznes-reja infografikasi","PDF infografikani to'liq tahrirlanadigan PowerPoint taqdimotga qayta qurish."]],
+ goal:["<span>Sun'iy intellekt va ma'lumotlar</span> orqali real muammolarni hal qilish.","<b>SI yechimlari</b>, <b>ma'lumotlar tahlili</b> va zamonaviy veb-texnologiyalarni birlashtirib, tashkilotlar ish jarayonini tezroq, aniqroq va avtomatlashgan holga keltirish — mening asosiy strategiyam.","Telegram'da yozish","Email yuborish"],
+ lg:[["O'zbek tili","Ona tili"],["Ingliz tili","B1 — Intermediate"]],
+ soft:["Jamoada ishlash","Muammo hal qilish","Tez o'rganish","Maqsadga intilish","Analitik fikrlash","Vaqt boshqaruvi"],
+ full:"Abrorbek Azimov Azamatovich",copy:"© 2026 — Barcha huquqlar himoyalangan"},
+
+ru:{dr:{h:"Моя мечта",tag:"Цель на будущее",t:"Открыть собственный IT-учебный центр",lead:"Моя главная мечта — открыть в Кызылтепинском районе полностью автоматизированный «умный учебный центр», специализирующийся только на IT. Название и бренд центра:",place:"IT-учебный центр · Кызылтепинский район, Навоийская область",
+ f:[["Только IT-направления","Программирование, искусственный интеллект и современные цифровые профессии"],["Посещаемость по Face ID","Приход и уход учеников фиксируются автоматически по распознаванию лица"],["Голосовой ассистент","Голосовой помощник Алиса интегрируется в работу центра"],["CRM Edu-Evolyutsiya","Моя собственная геймифицированная LMS: обучение и результаты в одной системе"]],m:"Уровень автоматизации"},
+ pi:{h:"Личная справка",l:["Ф.И.О.","Дата рождения","Адрес","Образование","Военная служба"],v:["Азимов Аброрбек Азамат угли","31.03.2006","Навоийская обл., Кызылтепинский р-н, МСГ Булакработ, дом 191","Неоконченное высшее","Есть военный билет · прошёл 1-месячную военную службу"],
+ cert:["Сертификат · Веб-программист","ООО «WWW-IT ACADEMY» · Профессиональное обучение"],
+ rh:"Официальная трудовая деятельность (из трудовой книжки)",th:["Период","Должность / деятельность","Организация"],
+ rows:[["19.09.2025 — 16.12.2025","Разработчик программного обеспечения","ООО «DAKTERANT SCHOOL»"],["06.07.2026 — н.в.","Менеджер","ООО «PROPAN BEST»"]],
+ doc:["Выписка из трудовой книжки","Номер документа: 3390817461 · Дата выдачи: 18.11.2026","Проверить подлинность: my.mehnat.uz/check","Номер паспорта и ПИНФЛ скрыты в целях безопасности.","Увеличить"]},
+ title:"Аброрбек Азимов — Резюме",nav:["Навыки","Опыт","Портфолио","Контакты"],mode:"Дневной / ночной режим",
+ badge:"Главный специалист по ИИ · Frontend-разработчик · Кызылтепа, Навои",name:"Аброрбек<br>Азимов",role:"Главный специалист по искусственному интеллекту",
+ typer:["Data-аналитика и статистика","Frontend-разработчик","Telegram-боты и CRM-интеграция","IT-менеджер"],
+ sub:"Институт TMCI · Программная инженерия · 3 курс (заочно)",stats:["года опыта","технологий","меньше ручной работы","GPA"],loc:"Навоийская область, Кызылтепинский район",
+ h:{pos:"Текущие должности",edu:"Образование",sk:"Технические навыки",all:"Все технологии",ex:"Дополнительные направления",exp:"Опыт работы и проекты",pf:"Портфолио",goal:"Цель",more:"Дополнительно",langs:"Языки",soft:"Soft skills"},
+ pos:[["Настоящее время","Главный специалист по искусственному интеллекту","Цифровизация и внедрение ИИ-решений",["Внедрение ИИ-инструментов (ChatGPT, Claude, ИИ-агенты) в рабочие процессы и обучение сотрудников","Подготовка проектов цифровизации, дорожных карт и презентаций","Автоматизация отчётов и справок"]],
+      ["2026 — настоящее время","IT-менеджер","Строительная компания Bahra Buildings · Ташкент",["Координация отбора (скрининга) и онбординга новых участников команды","Управление информационным потоком и контент-стратегией в Telegram и LinkedIn","Распределение задач, контроль сроков спринтов, упорядоченная работа в GitHub/GitLab"]]],
+ edu:{n:"Институт TMCI",d:"2024 — 2029 (ожидается) · Ташкент",deg:"Бакалавриат: программная инженерия (информационные системы и технологии) — 3 курс, заочно",f:["Современная веб-архитектура","Базы данных и backend-интеграция","Алгоритмы"],t:["Студент 3 курса","Активный одарённый студент"],g:"GPA — академический показатель"},
+ skg:["Искусственный интеллект","Data-аналитика и статистика","Frontend","Backend, боты и БД"],
+ ski:[["Prompt engineering","ИИ-агенты и автоматизация","ChatGPT / Claude API","Внедрение ИИ-решений"],["Excel / Google Sheets","Статистический анализ и отчёты","Дашборды и визуализация","Python (Pandas)"]],
+ tech:["Искусственный интеллект","Prompt engineering","ИИ-агенты","Data-аналитика","Статистика"],
+ ex:[["Искусственный интеллект",[["Внедрение ИИ-решений","Анализ рабочих процессов и их автоматизация с помощью ИИ"],["ИИ-агенты","Настройка автоматических агентов для контента, отчётов и сообщений"],["Обучение сотрудников","Тренинги по практическому использованию ИИ и MS Office"],["Документы и презентации","Дорожные карты, справки и презентации с помощью ИИ"]]],
+     ["Data-аналитика и статистика",[["Сбор и очистка данных","Таблицы, формулы и автоматические расчёты в Excel / Google Sheets"],["Статистический анализ","Ежедневная и периодическая статистика, динамика и сравнение показателей"],["Дашборды и отчёты","Визуальные дашборды и доклады для руководства"],["Мониторинг","Контроль исполнения планов и своевременная подача результатов"]]],
+     ["Администрирование",[["Сервер и хостинг","VPS (Ubuntu/Linux), Nginx, домен/DNS и деплой"],["Безопасность и авторизация","JWT, ролевой доступ (RBAC)"]]]],
+ tl:[["Настоящее время","Главный специалист по ИИ","Цифровизация, ИИ и data-аналитика",["Внедрение ИИ-инструментов и ИИ-агентов в рабочие процессы","Сбор и анализ статистических данных, подготовка отчётов"]],
+     ["2025 — настоящее время","Frontend и Telegram-бот / CRM-разработчик","E-commerce-платформа и торговые системы в Telegram · Ташкент",["Создавал быстрые адаптивные интерфейсы интернет-магазинов и каталогов на React.js","Внедрил бот-системы на Telegram Bot API, принимающие заказы в реальном времени","Интегрировал поток заказов с CRM и PostgreSQL, сократив ручные операции на 40%","Разработал админ-панель для каталога, пользователей и анализа продаж"]],
+     ["2024 — 2025","Frontend-разработчик и администрирование","Веб-приложения, деплой и управление серверами · Ташкент",["С нуля разрабатывал динамичные модульные веб-приложения на JavaScript (ES6+) и React.js","Проектировал надёжные REST API на Node.js и Express.js с JWT-аутентификацией","Настраивал приложения на VPS, домены/DNS и оптимизировал архитектуру БД MySQL/PostgreSQL"]],
+     ["2024 — 2025","Junior веб-разработчик","Статические и адаптивные веб-страницы · Ташкент",["Создавал адаптивные веб-страницы на HTML5, CSS3 и JavaScript","Освоил контроль версий в Git и GitHub и стандарты чистого кода"]]],
+ cats:{all:"Все",ai:"ИИ и автоматизация",web:"Web и CRM",data:"Данные и статистика",pres:"Проекты и презентации"},
+ tw:{auto:"Автоматизация",edu:"Образование",anim:"Анимация",design:"Дизайн",stat:"Статистика",report:"Отчёт",formulas:"Формулы",fin:"Финансы",pres:"Презентация",info:"Инфографика"},
+ pj:[["Личный голосовой ассистент JARVIS","Голосовой ИИ-ассистент на компьютере; связан с Telegram, Gmail и Instagram."],["ИИ-агенты для Instagram","Автоматическая подготовка и публикация ежедневных постов и сторис с помощью ИИ-агентов."],["Умный учебный центр и CRM","Собственная CRM для IT-учебного центра в Кызылтепинском районе: ученики, группы и оплаты."],["Платформа BSIANATOMY.uz","Образовательная веб-платформа для изучения анатомии."],["Онлайн-приглашения","Анимированные онлайн-приглашения с фото и музыкой для разных торжеств."],["Ежедневная статистика сертификатов","Ежедневная статистика и отчёты по сертификатам учителей и учеников в школах."],["Контроль кассы — Google Sheets","Ежедневный учёт приходов и расходов, автоматические итоги и система доступа."],["Отчёт по маркетплейсам Навоийской области","Периодический аналитический доклад: строгая структура, показатели и выводы."],["ИИ в животноводстве — дорожная карта","Презентация дорожной карты цифровизации и внедрения ИИ в животноводстве Кызылтепинского района."],["Цифровое управление водными ресурсами","Презентация проекта управления орошением на базе IoT и ИИ в сельском хозяйстве."],["Инфографика бизнес-плана","Перестройка PDF-инфографики в полностью редактируемую презентацию PowerPoint."]],
+ goal:["<span>Решать реальные задачи</span> с помощью ИИ и данных.","Объединяя <b>ИИ-решения</b>, <b>анализ данных</b> и современные веб-технологии, делаю рабочие процессы организаций быстрее, точнее и автоматизированнее.","Написать в Telegram","Отправить email"],
+ lg:[["Узбекский","Родной"],["Английский","B1 — Intermediate"]],
+ soft:["Работа в команде","Решение проблем","Быстрая обучаемость","Целеустремлённость","Аналитическое мышление","Тайм-менеджмент"],
+ full:"Азимов Аброрбек Азаматович",copy:"© 2026 — Все права защищены"},
+
+en:{dr:{h:"My dream",tag:"Future goal",t:"Opening my own IT learning centre",lead:"My biggest dream is to open a fully automated “smart learning centre” in Qiziltepa district, dedicated only to IT. The centre's name and brand:",place:"IT learning centre · Qiziltepa district, Navoi region",
+ f:[["IT-only programmes","Programming, artificial intelligence and modern digital careers"],["Face ID attendance","Student check-in and check-out recorded automatically by face recognition"],["Voice assistant","Alisa voice assistant integrated into the centre's operations"],["Edu-Evolyutsiya CRM","My own gamified LMS: learning and results in one system"]],m:"Automation level"},
+ pi:{h:"Personal details",l:["Full name","Date of birth","Address","Education","Military service"],v:["Abrorbek Azamat ugli Azimov","31.03.2006","Bulakrabot MCA, house 191, Qiziltepa district, Navoi region","Incomplete higher education","Holds a military ID · completed 1-month military service"],
+ cert:["Certificate · Web developer","\"WWW-IT ACADEMY\" LLC · Vocational training"],
+ rh:"Official employment record (labour book extract)",th:["Period","Position / activity","Organisation"],
+ rows:[["19.09.2025 — 16.12.2025","Software developer","\"DAKTERANT SCHOOL\" LLC"],["06.07.2026 — present","Manager","\"PROPAN BEST\" LLC"]],
+ doc:["Labour book extract","Document no.: 3390817461 · Issued: 18.11.2026","Verify authenticity: my.mehnat.uz/check","Passport number and PINFL are hidden for security.","Enlarge"]},
+ title:"Abrorbek Azimov — Resume",nav:["Skills","Experience","Portfolio","Contact"],mode:"Day / night mode",
+ badge:"Chief AI Specialist · Frontend Developer · Qiziltepa, Navoi",name:"Abrorbek<br>Azimov",role:"Chief Artificial Intelligence Specialist",
+ typer:["Data analytics & statistics","Frontend developer","Telegram bot & CRM integrator","IT manager"],
+ sub:"TMCI Institute · Software Engineering · 3rd year (part-time)",stats:["years of experience","technologies","less manual work","GPA"],loc:"Qiziltepa district, Navoi region",
+ h:{pos:"Current roles",edu:"Education",sk:"Technical skills",all:"All technologies",ex:"Additional areas",exp:"Experience & projects",pf:"Portfolio",goal:"Goal",more:"More",langs:"Languages",soft:"Soft skills"},
+ pos:[["Present","Chief Artificial Intelligence Specialist","Digital transformation and AI adoption",["Introducing AI tools (ChatGPT, Claude, AI agents) into workflows and training staff","Preparing digitalization projects, roadmaps and presentations","Automating reports and briefs"]],
+      ["2026 — Present","IT Manager","Bahra Buildings construction company · Tashkent",["Coordinated screening and onboarding of new team members","Managed information flow and content strategy for Telegram and LinkedIn","Task allocation, sprint deadline tracking and orderly work in GitHub/GitLab"]]],
+ edu:{n:"TMCI Institute",d:"2024 — 2029 (expected) · Tashkent",deg:"Bachelor: Software Engineering (Information Systems and Technologies) — 3rd year, part-time",f:["Modern web architecture","Databases and backend integration","Algorithms"],t:["3rd-year student","Active high achiever"],g:"GPA — academic standing"},
+ skg:["Artificial intelligence","Data analytics & statistics","Frontend","Backend, bots & DB"],
+ ski:[["Prompt engineering","AI agents & automation","ChatGPT / Claude API","AI solution adoption"],["Excel / Google Sheets","Statistical analysis & reporting","Dashboards & visualization","Python (Pandas)"]],
+ tech:["Artificial intelligence","Prompt engineering","AI agents","Data analytics","Statistics"],
+ ex:[["Artificial intelligence",[["AI adoption","Analysing workflows and automating them with AI tools"],["AI agents","Setting up automated agents for content, reports and messaging"],["Staff training","Hands-on training in AI and MS Office"],["Documents & presentations","Roadmaps, briefs and presentations prepared with AI"]]],
+     ["Data analytics & statistics",[["Data collection & cleaning","Spreadsheets, formulas and automated calculations in Excel / Google Sheets"],["Statistical analysis","Daily and periodic statistics, trends and comparisons"],["Dashboards & reports","Visual dashboards and reports for management"],["Monitoring","Tracking plan execution and delivering results on time"]]],
+     ["Administration",[["Server & hosting","VPS (Ubuntu/Linux), Nginx, domain/DNS and deployment"],["Security & auth","JWT, role-based access control (RBAC)"]]]],
+ tl:[["Present","Chief AI Specialist","Digital transformation, AI and data analytics",["Introducing AI tools and AI agents into everyday workflows","Collecting and analysing statistical data and preparing reports"]],
+     ["2025 — Present","Frontend & Telegram Bot / CRM Developer","E-commerce platform and Telegram sales systems · Tashkent",["Built fast, responsive storefront and catalog interfaces with React.js","Deployed Telegram Bot API systems that take and manage orders in real time","Integrated the order flow with CRM and PostgreSQL, cutting manual operations by 40%","Developed an admin dashboard for catalog, users and sales analytics"]],
+     ["2024 — 2025","Frontend Developer & Administration","Web apps, deployment and server management · Tashkent",["Built dynamic, modular web applications from scratch with JavaScript (ES6+) and React.js","Designed stable REST APIs on Node.js and Express.js with JWT authentication","Configured apps on VPS, linked domains/DNS and optimised MySQL/PostgreSQL architecture"]],
+     ["2024 — 2025","Junior Web Developer","Static and responsive web pages · Tashkent",["Built responsive web pages with HTML5, CSS3 and JavaScript","Adopted version control with Git and GitHub and clean-code practices"]]],
+ cats:{all:"All",ai:"AI & automation",web:"Web & CRM",data:"Data & statistics",pres:"Projects & decks"},
+ tw:{auto:"Automation",edu:"Education",anim:"Animation",design:"Design",stat:"Statistics",report:"Reporting",formulas:"Formulas",fin:"Finance",pres:"Presentation",info:"Infographic"},
+ pj:[["Personal JARVIS voice assistant","AI voice assistant running on my PC, linked to Telegram, Gmail and Instagram."],["AI agents for Instagram","Daily posts and stories prepared and published automatically by AI agents."],["Smart learning centre & CRM","My own CRM for an IT learning centre in Qiziltepa district: students, groups and payments."],["BSIANATOMY.uz platform","Educational web platform for learning anatomy."],["Online invitations","Animated online invitations with photos and music for celebrations."],["Daily certificate statistics","Daily statistics and reports on certificates earned by teachers and students in schools."],["Cash control — Google Sheets","Daily income and expense tracking with automatic totals and access permissions."],["Navoi region marketplace report","Periodic analytical report with a fixed structure, indicators and conclusions."],["AI in livestock — roadmap","Roadmap presentation for digitalising livestock farming and adopting AI in Qiziltepa district."],["Digital water resource management","Presentation of an IoT- and AI-based irrigation management project for agriculture."],["Business plan infographic","Rebuilt a PDF infographic as a fully editable PowerPoint deck."]],
+ goal:["<span>Solving real problems</span> with AI and data.","By combining <b>AI solutions</b>, <b>data analysis</b> and modern web technologies, I help organisations make their work faster, more accurate and more automated.","Message on Telegram","Send email"],
+ lg:[["Uzbek","Native"],["English","B1 — Intermediate"]],
+ soft:["Teamwork","Problem solving","Fast learner","Goal-oriented","Analytical thinking","Time management"],
+ full:"Abrorbek Azimov",copy:"© 2026 — All rights reserved"}
+};
+
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const root=document.documentElement,app=document.getElementById('app'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lang=store.get('cv-lang');if(!L[lang])lang='uz';
+let mode=store.get('cv-mode');if(mode!=='light'&&mode!=='dark')mode='dark';
+root.dataset.mode=mode;
+
+const render=()=>{
+ const t=L[lang],tw=w=>t.tw[w]||w;
+ const skills=t.skg.map((g,i)=>{const names=i===0?t.ski[0]:i===1?t.ski[1]:i===2?fe:be;return `<div class="card sk"><h4>${g}</h4>${names.map((n,k)=>`<div class="bar"><div>${n}<span>${pct[i][k]}%</span></div><p><i data-w="${pct[i][k]}"></i></p></div>`).join('')}</div>`}).join('');
+ const tech=[...t.tech,...techCommon].map((x,i)=>`<span class="tag${i<3?' t2':i<10?' t1':''}">${x}</span>`).join('');
+ const extra=t.ex.map((g,gi)=>`<div class="grp">${g[0]}</div><div class="mini">${g[1].map((x,k)=>`<div class="box"><span class="ico">${sv(exIcons[gi][k])}</span><div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('')}</div>`).join('');
+ const tl=t.tl.map(e=>`<div class="ev"><small>${e[0]}</small><h4>${e[1]}</h4><p class="o">${e[2]}</p><ul>${e[3].map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+ const grid='<svg class="grid" aria-hidden="true"><defs><pattern id="gp" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="currentColor" stroke-width=".6"/></pattern></defs><rect width="100%" height="100%" fill="url(#gp)"/></svg>';
+ const cards=pj.map((p,k)=>`<article class="pc" data-c="${p[0]}"><div class="th" style="--x:${20+(k*37)%70}%">${grid}<span class="cat">${t.cats[p[0]]}</span><span class="big">${sv(p[1],1.8)}</span></div><div class="pb"><h3>${t.pj[k][0]}</h3><p>${t.pj[k][1]}</p><div class="tags">${p[2].map(x=>`<span class="tag">${tw(x)}</span>`).join('')}</div></div></article>`).join('');
+ const fl=['all','ai','web','data','pres'].map((c,i)=>`<button class="fb${i?'':' act'}" data-f="${c}" aria-pressed="${!i}">${t.cats[c]} <span style="opacity:.6">${c==='all'?pj.length:pj.filter(p=>p[0]===c).length}</span></button>`).join('');
+ const st=[["2+",t.stats[0]],["20+",t.stats[1]],["40%",t.stats[2]],["4.0+",t.stats[3]]];
+ app.innerHTML=`
+<header class="hero">
+  <span class="badge"><i></i>${t.badge}</span>
+  <h1>${t.name}</h1>
+  <p class="role"><em>${t.role}</em> · <b id="typer">${t.typer[0]}</b><span class="cursor"></span></p>
+  <p class="sub">${t.sub}</p>
+  <div class="rule"></div>
+  <div class="stats">${st.map(s=>`<div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+  <div class="chips">
+    <a class="chip tg" href="${TG}">${sv('tg')}@azimov_8866</a>
+    <a class="chip" href="tel:+998775338866">${sv('ph')}${PH}</a>
+    <a class="chip" href="mailto:${EM}">${sv('em')}${EM}</a>
+    <span class="chip">${sv('pin')}${t.loc}</span>
+  </div>
+</header>
+<h2 class="rv">${t.h.pos}</h2>
+<div class="grid2 rv">${t.pos.map((p,i)=>`<article class="card hl"${i?' style="background:radial-gradient(120% 140% at 0% 100%,var(--glow),transparent 55%),var(--card)"':''}><span class="now"><i></i>${p[0]}</span><h3>${p[1]}</h3><p class="org">${p[2]}</p><ul>${p[3].map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('')}</div>
+<h2 class="rv">${t.h.edu}</h2>
+<div class="card edu rv"><div><h3>${t.edu.n}</h3><span class="date">${t.edu.d}</span><p>${t.edu.deg}</p><ul>${t.edu.f.map(x=>`<li>${x}</li>`).join('')}</ul><div class="tags" style="margin-top:14px"><span class="tag t1">${t.edu.t[0]}</span><span class="tag t2">${t.edu.t[1]}</span></div></div><div class="gpa"><b>4.0+</b><span>${t.edu.g}</span></div></div>
+<h2 class="rv" id="personal">${t.pi.h}</h2>
+<div class="pi rv">
+  <div class="card">
+    <dl class="dl">${t.pi.l.map((l,i)=>`<dt>${l}</dt><dd>${t.pi.v[i]}</dd>`).join('')}</dl>
+    <div class="cert"><span class="ico">${sv('cert')}</span><div><b>${t.pi.cert[0]}</b><span>${t.pi.cert[1]}</span></div><span class="dt">15.01.2025</span></div>
+    <div class="grp" style="margin-top:22px">${t.pi.rh}</div>
+    <table class="rec"><thead><tr>${t.pi.th.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${t.pi.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  </div>
+  <div class="card doc">
+    <button class="shot" id="shot" type="button"><img src="mehnat.jpg" alt="${t.pi.doc[0]}" loading="lazy"><span>${t.pi.doc[4]}</span></button>
+    <h4>${t.pi.doc[0]}</h4>
+    <p>${t.pi.doc[1]}</p>
+    <a class="v" href="https://my.mehnat.uz/check">${t.pi.doc[2]}</a>
+    <p>${t.pi.doc[3]}</p>
+  </div>
+</div>
+<h2 class="rv" id="skills">${t.h.sk}</h2>
+<div class="grid2 rv">${skills}</div>
+<div class="card rv" style="margin-top:14px"><div class="grp">${t.h.all}</div><div class="tags">${tech}</div></div>
+<h2 class="rv">${t.h.ex}</h2>
+<div class="card rv">${extra}</div>
+<h2 class="rv" id="experience">${t.h.exp}</h2>
+<div class="card rv"><div class="tl">${tl}</div></div>
+<h2 class="rv" id="portfolio">${t.h.pf}</h2>
+<div class="rv"><div class="filters" id="filters">${fl}</div><div class="pf" id="pf">${cards}</div></div>
+<h2 class="rv" id="dream">${t.dr.h}</h2>
+<div class="card dream rv">
+  <div class="ring"><div class="orbit"><i></i></div><div class="orbit o2"><i></i></div><img src="logo.png" alt="AI-Tech Azimov"></div>
+  <div>
+    <span class="now"><i></i>${t.dr.tag}</span>
+    <h3>${t.dr.t}</h3>
+    <p class="lead">${t.dr.lead}</p>
+    <div class="brand">AI-Tech Azimov</div>
+    <p class="place">${t.dr.place}</p>
+    <div class="feat">${t.dr.f.map((x,k)=>`<div class="box"><span class="ico">${sv(['cap','users','mic','chart'][k])}</span><div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('')}</div>
+    <div class="meter"><div>${t.dr.m}<span>100%</span></div><p><i data-w="100"></i></p></div>
+  </div>
+</div>
+<h2 class="rv" id="contact">${t.h.goal}</h2>
+<div class="card goal rv"><h3>${t.goal[0]}</h3><p>${t.goal[1]}</p><div class="btns"><a class="btn p" href="${TG}">${sv('tg')}${t.goal[2]}</a><a class="btn" href="mailto:${EM}">${sv('em')}${t.goal[3]}</a></div></div>
+<h2 class="rv">${t.h.more}</h2>
+<div class="grid2 rv">
+  <div class="card"><div class="grp">${t.h.langs}</div>${t.lg.map(l=>`<div class="lang">${l[0]} <span>${l[1]}</span></div>`).join('')}</div>
+  <div class="card"><div class="grp">${t.h.soft}</div><div class="soft">${t.soft.map(s=>`<div>${s}</div>`).join('')}</div></div>
+</div>
+<footer><div><b>${t.full}</b>${t.badge}</div><nav><a href="#portfolio">${t.nav[2]}</a><a href="${TG}">Telegram</a><a href="mailto:${EM}">Email</a><a href="tel:+998775338866">${PH}</a></nav><div>${t.copy}</div></footer>`;
+ document.getElementById('nav').innerHTML=[["#skills",t.nav[0]],["#experience",t.nav[1]],["#portfolio",t.nav[2]],["#contact",t.nav[3]]].map(n=>`<a href="${n[0]}">${n[1]}</a>`).join('');
+ root.lang=lang;document.title=t.title;
+ document.getElementById('mode').setAttribute('aria-label',t.mode);
+ document.querySelectorAll('#langs button').forEach(b=>{const on=b.dataset.l===lang;b.classList.toggle('act',on);b.setAttribute('aria-pressed',on)});
+ observe();startTyper();
+};
+
+/* reveal */
+let io;
+const reveal=el=>{el.classList.add('on');el.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%')};
+const observe=()=>{
+ if(io)io.disconnect();
+ io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){reveal(e.target);io.unobserve(e.target)}}),{threshold:.1});
+ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+ setTimeout(()=>document.querySelectorAll('.rv:not(.on)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight)reveal(el)}),300);
+ setTimeout(()=>document.querySelectorAll('.rv:not(.on)').forEach(reveal),3000);
+};
+
+/* typer */
+let tt;
+const startTyper=()=>{
+ clearTimeout(tt);if(still)return;
+ const words=L[lang].typer,ty=document.getElementById('typer');let w=0,c=words[0].length,del=true;
+ const tick=()=>{if(!ty.isConnected)return;if(del){c--;if(c<=0){del=false;w=(w+1)%words.length}}else{c++;if(c>=words[w].length){del=true;ty.textContent=words[w];tt=setTimeout(tick,2200);return}}ty.textContent=words[w].slice(0,Math.max(c,0));tt=setTimeout(tick,del?35:70)};
+ tt=setTimeout(tick,2600);
+};
+
+/* events */
+document.getElementById('langs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.l===lang)return;lang=b.dataset.l;store.set('cv-lang',lang);app.classList.remove('swap');void app.offsetWidth;app.classList.add('swap');render()});
+document.getElementById('mode').addEventListener('click',()=>{mode=mode==='dark'?'light':'dark';root.dataset.mode=mode;store.set('cv-mode',mode)});
+app.addEventListener('click',e=>{const b=e.target.closest('.fb');if(!b)return;
+ document.querySelectorAll('.fb').forEach(x=>{x.classList.toggle('act',x===b);x.setAttribute('aria-pressed',x===b)});
+ let n=0;document.querySelectorAll('.pc').forEach(c=>{const ok=b.dataset.f==='all'||c.dataset.c===b.dataset.f;c.classList.toggle('hide',!ok);c.classList.remove('pop');if(ok){void c.offsetWidth;c.style.animationDelay=(n++*60)+'ms';c.classList.add('pop')}})});
+
+const lb=document.getElementById('lb');
+app.addEventListener('click',e=>{if(e.target.closest('#shot'))lb.classList.add('open')});
+lb.addEventListener('click',()=>lb.classList.remove('open'));
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
+/* stars */
+const cv=document.getElementById('sky'),x=cv.getContext('2d');let stars=[];
+const rs=()=>{const d=devicePixelRatio||1;cv.width=innerWidth*d;cv.height=innerHeight*d;stars=Array.from({length:Math.round(innerWidth*innerHeight/9000)},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:(Math.random()*1.2+.3)*d,p:Math.random()*6.28}))};
+const dr=t=>{const c=getComputedStyle(root).getPropertyValue('--star').replace(/'/g,'').trim()||'218,241,222';x.clearRect(0,0,cv.width,cv.height);for(const s of stars){x.fillStyle=`rgba(${c},${.2+.35*Math.sin(t/1400+s.p)**2})`;x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()}if(!still)requestAnimationFrame(dr)};
+addEventListener('resize',rs);rs();requestAnimationFrame(dr);
+
+render();
+}
+</script>
+</body>
+</html>
