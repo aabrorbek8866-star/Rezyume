@@ -6,4 +6,4 @@ Sun'iy intellekt bosh mutaxassisi · Data analitika & statistika · Frontend dev
 - Kunduzgi va tungi rejim
 - Portfolio, shaxsiy ma'lumotnoma, "AI-Tech Azimov" o'quv markazi g'oyasi
 
-Telegram: [@azimov_8866](https://t.me/azimov_8866)
+Telegram: [@azimov_8866](https://t.me/azimov_8866) sayt https://aabrorbek8866-star.github.io/Rezyume/
